@@ -1,12 +1,10 @@
 package kr.co.fastcampus.eatgo.application;
 
-import kr.co.fastcampus.eatgo.domain.MenuItem;
-import kr.co.fastcampus.eatgo.domain.MenuItemRepository;
-import kr.co.fastcampus.eatgo.domain.Restaurant;
-import kr.co.fastcampus.eatgo.domain.RestaurantRepository;
+import kr.co.fastcampus.eatgo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -24,21 +22,34 @@ public class RestaurantService {
     }
 
     public List<Restaurant> getRestaurants() {
-        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.findAll() ;
         return restaurants;
     }
 
     public Restaurant getRestaurant(Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id);
+//orElseThrow(() -> new RestaurantNotFoundException(id));
+        //Optional<Restaurant> findById(Long id);에서 Optional의 값이 없을때 어떻게 할꺼냐냐
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(()
+                -> new RestaurantNotFoundException(id));
 
         List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
-
         restaurant.setMenuItems(menuItems);
+
         return restaurant;
     }
 
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
+    }
+
+    @Transactional
+    public Restaurant updateRestaurant(Long id, String name, String address) {
+
+        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+
+        restaurant.updateInformation(name, address);
+
+        return restaurant;
     }
 }
 
