@@ -141,7 +141,7 @@ public class RestaurantControllerTest {
                 .content("{\"name\":\"\",\"addresss\":\"\"}"))
                 .andExpect(status().isBadRequest());
     }
-//ㅁㅁㅁㅁㅁㅁ
+
     @Test
     public void updateWithValidData() throws Exception {
 
