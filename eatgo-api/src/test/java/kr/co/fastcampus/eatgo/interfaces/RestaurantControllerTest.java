@@ -129,7 +129,7 @@ public class RestaurantControllerTest {
                 .andExpect(header().string("location", "/restaurants/1234"))
                 .andExpect(content().string("{}"));
 
-        //실행하는 중심 (한번 호출 했다는 뜻)
+        //원하는 메소드가 특정조건으로 실행되었는지 검사 (한번 호출 했는지 검사)
         verify(restaurantService).addRestaurant(any());
     }
 

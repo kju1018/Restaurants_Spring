@@ -58,7 +58,7 @@ public class restaurantServiceTest {
                 .name("Kimchi")
                 .build());
 
-        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
+        given(menuItemRepository.findAllByrestaurantId(1004L)).willReturn(menuItems);
     }
 
     @Test
