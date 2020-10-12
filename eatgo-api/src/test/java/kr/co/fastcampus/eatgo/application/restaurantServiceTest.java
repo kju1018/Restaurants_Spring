@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 public class restaurantServiceTest {
 
@@ -25,6 +26,9 @@ public class restaurantServiceTest {
     @Mock
     private MenuItemRepository menuItemRepository;
 
+    @Mock
+    private ReviewRepository reviewRepository;
+
     //모든 테스트가 실행되기 전에 반드시 한번씩 실행됨
     @BeforeEach
     public void setUp(){
@@ -32,9 +36,10 @@ public class restaurantServiceTest {
 
         mockRestaurantRepository();
         mockMenuItemRepository();
+        mockReviewRepository();
         //스프링을 이용한 테스트가 아니기때문에 직접 의존성 주입
         restaurantService = new RestaurantService(
-                restaurantRepository, menuItemRepository);
+                restaurantRepository, menuItemRepository, reviewRepository);
     }
 
     private void mockRestaurantRepository() {
@@ -58,7 +63,18 @@ public class restaurantServiceTest {
                 .name("Kimchi")
                 .build());
 
-        given(menuItemRepository.findAllByrestaurantId(1004L)).willReturn(menuItems);
+        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
+    }
+
+    private void mockReviewRepository() {
+        List<Review> reviews = new ArrayList<>();
+        reviews.add(Review.builder()
+                .name("Kim MS")
+                .score(1)
+                .description("No!")
+                .build());
+
+        given(reviewRepository.findAllByRestaurantId(1004L)).willReturn(reviews);
     }
 
     @Test
@@ -68,16 +84,26 @@ public class restaurantServiceTest {
         Restaurant restaurant = restaurants.get(0);
 
         assertThat(restaurant.getId()).isEqualTo(1004L);
+
     }
 
     @Test
     public void getRestaurantWithExisted(){
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
+        //검사해줄 명령어
+
+        verify(menuItemRepository).findAllByRestaurantId(1004L);
+        verify(reviewRepository).findAllByRestaurantId(1004L);
+        //위에 2개의 함수가 잘 실행 됐는지 검사
 
         assertThat(restaurant.getId()).isEqualTo(1004L);
 
         MenuItem menuItem = restaurant.getMenuItems().get(0);
         assertThat(menuItem.getName()).isEqualTo("Kimchi");
+
+        Review review =restaurant.getReviews().get(0);
+        assertThat(review.getDescription()).isEqualTo("No!");
+
     }
 
     @Test()

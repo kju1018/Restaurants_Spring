@@ -11,3 +11,5 @@ public class EatgoApplication {
 	}
 
 }
+//http localhost:8080/restaurants
+//http PATCH localhost:8080/restaurants/1/menuitems < menuitems.json
