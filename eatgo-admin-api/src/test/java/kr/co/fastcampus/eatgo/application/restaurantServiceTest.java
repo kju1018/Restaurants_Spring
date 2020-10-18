@@ -1,6 +1,8 @@
 package kr.co.fastcampus.eatgo.application;
 
-import kr.co.fastcampus.eatgo.domain.*;
+import kr.co.fastcampus.eatgo.domain.Restaurant;
+import kr.co.fastcampus.eatgo.domain.RestaurantNotFoundException;
+import kr.co.fastcampus.eatgo.domain.RestaurantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -105,7 +107,7 @@ public class restaurantServiceTest {
 
         Restaurant created = restaurantService.addRestaurant(restaurant);
 
-        assertThat(created.getId()).isEqualTo(1234L);
+        assertThat(created.getId()).isEqualTo(1234);
     }
 
     @Test
