@@ -38,6 +38,24 @@ public class RestaurantControllerTest {
 
     @Test
     public void list() throws Exception {
+//        List<Restaurant> restaurants = new ArrayList<>();
+//        restaurants.add(Restaurant.builder()
+//                .id(1004L)
+//                .name("JOKER House")
+//                .address("Seoul")
+//                .build());
+//
+//        given(restaurantService.getRestaurants()).willReturn(restaurants);
+//
+//        mvc.perform(get("/restaurants"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string(
+//                        containsString("\"id\":1004")
+//                ))
+//                .andExpect(content().string(
+//                        containsString("\"name\":\"JOKER House\"")
+//                ));
+
         List<Restaurant> restaurants = new ArrayList<>();
         restaurants.add(Restaurant.builder()
                 .id(1004L)
@@ -45,9 +63,9 @@ public class RestaurantControllerTest {
                 .address("Seoul")
                 .build());
 
-        given(restaurantService.getRestaurants()).willReturn(restaurants);
+        given(restaurantService.getRestaurants("Seoul")).willReturn(restaurants);
 
-        mvc.perform(get("/restaurants"))
+        mvc.perform(get("/restaurants?region=Seoul"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"id\":1004")
