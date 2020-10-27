@@ -32,7 +32,6 @@ public class CategoryController {
 
         Category category = categoryService.addCategory(resource.getName());
 
-        //TODO: 지역 생성
         String url = "/categories/" + category.getId();
         return ResponseEntity.created(new URI(url)).body("{}");
     }

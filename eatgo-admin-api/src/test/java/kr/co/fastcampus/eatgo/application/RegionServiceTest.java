@@ -48,5 +48,7 @@ public class RegionServiceTest {
         verify(regionRepository).save(any());
 
         assertThat(region.getName()).isEqualTo("Seoul");
+
+//        assertThat(region.getId()).isEqualTo(1);
     }
 }

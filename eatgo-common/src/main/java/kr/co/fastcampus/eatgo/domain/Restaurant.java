@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class Restaurant {
     @Setter
     private Long id;
 
+
+    @NotNull
+    private Long categoryId;
+    //TODO http POST localhost:8080/restaurants name , address 이거 순서 바꾸어도 상관없나?
     @NotEmpty
     private String name;
     @NotEmpty

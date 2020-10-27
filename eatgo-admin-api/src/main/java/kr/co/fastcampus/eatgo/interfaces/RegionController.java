@@ -32,7 +32,6 @@ public class RegionController {
 
         Region region = regionService.addRegion(resource.getName());
 
-        //TODO: 지역 생성
         String url = "/regions/" + region.getId();
         return ResponseEntity.created(new URI(url)).body("{}");
     }

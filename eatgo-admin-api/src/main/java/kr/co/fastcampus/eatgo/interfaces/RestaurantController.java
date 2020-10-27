@@ -43,6 +43,7 @@ public class RestaurantController {
         //1. builder 사용
         Restaurant restaurant = restaurantService.addRestaurant(
                 Restaurant.builder()
+                        .categoryId(resource.getCategoryId())
                         .name(resource.getName())
                         .address(resource.getAddress())
                         .build());
