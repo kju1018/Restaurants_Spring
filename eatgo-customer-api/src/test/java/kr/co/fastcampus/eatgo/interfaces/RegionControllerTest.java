@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(RegionController.class)
-class RegionControllerTest {
+public class RegionControllerTest {
 
     @Autowired
     private MockMvc mvc;

@@ -62,7 +62,7 @@ class UserControllerTest {
                 .name(name)
                 .build();
 
-//        given(userService.addUser(email, name)).willReturn(user);
+        given(userService.addUser(email, name)).willReturn(user);
 
         mvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -70,7 +70,7 @@ class UserControllerTest {
                 .andExpect(status().isCreated());
 
 
-//        verify(userService).addUser(email, name);
+        verify(userService).addUser(email, name);
     }
 //"id":1004
     @Test
