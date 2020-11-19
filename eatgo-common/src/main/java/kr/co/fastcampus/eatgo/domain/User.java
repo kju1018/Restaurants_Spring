@@ -32,8 +32,12 @@ public class User {
     @Setter
     @NotNull
     private Long level;
+    //TODO 대문자 L 래퍼클래스?
 
     private String password;
+
+
+    private Long restaurantId;
 
     public boolean isAdmin() {
         return level>=3;
@@ -45,5 +49,15 @@ public class User {
 
     public void deactivate() {
         level = 0L;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.level = 50L;
+        this.restaurantId = restaurantId;
+    }
+
+    public boolean isRestaurantOwer() {
+
+        return level == 50L;
     }
 }

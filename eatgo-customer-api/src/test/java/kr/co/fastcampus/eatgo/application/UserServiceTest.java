@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -22,10 +23,13 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, passwordEncoder);
     }
 
     @Test
@@ -38,6 +42,7 @@ class UserServiceTest {
         verify(userRepository).save(any());
     }
 
+    //이미 이메일이 있는경우
     @Test
     public void registerUserWithExistedEmail(){
         String email = "tester@example.com";
@@ -53,4 +58,5 @@ class UserServiceTest {
 
         verify(userRepository, never()).save(any());
     }
+
 }

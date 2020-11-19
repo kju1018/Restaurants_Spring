@@ -3,7 +3,6 @@ package kr.co.fastcampus.eatgo.application;
 import kr.co.fastcampus.eatgo.domain.User;
 import kr.co.fastcampus.eatgo.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,15 @@ import java.util.Optional;
 @Transactional
 public class UserService {
 
-    @Autowired
+
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(String email, String name, String password) {
@@ -28,10 +31,15 @@ public class UserService {
             //이미 같은 이메일이 등록되어있기때문에
             throw new EmailExistedException(email);
         }
+//        원래 이렇게 처리
+//        //PasswordEncoder는 인터페이스
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String encodedPassword = passwordEncoder.encode(password);
 
-        //PasswordEncoder는 인터페이스
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+
+//       함수를 이용해서 처리리
+//      PasswordEncoder passwordEncoder = passwordEncoder();
         //PasswordEncoder를 상속받은 BCryptPasswordEncoder의 encode를 사용하여 password를 인코딩
         String encodedPassword = passwordEncoder.encode(password);
 
@@ -45,8 +53,5 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User authenticate(String email, String password) {
-        //TODO
-        return null;
-    }
+
 }
