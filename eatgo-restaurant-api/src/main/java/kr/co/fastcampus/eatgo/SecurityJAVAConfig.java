@@ -1,6 +1,5 @@
 package kr.co.fastcampus.eatgo;
 
-
 import kr.co.fastcampus.eatgo.filters.JwtAuthenticationFilter;
 import kr.co.fastcampus.eatgo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,18 +23,17 @@ public class SecurityJAVAConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         Filter filter = new JwtAuthenticationFilter(authenticationManager(), jwtUtil());
 
         http
                 .cors().disable()
                 .csrf().disable()
                 .formLogin().disable()
-                .headers().frameOptions().disable()
-                .and()
+                .headers().frameOptions().disable().and()
                 .addFilter(filter)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
     }
 
     //

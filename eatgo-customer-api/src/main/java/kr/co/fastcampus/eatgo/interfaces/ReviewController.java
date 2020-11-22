@@ -21,6 +21,7 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
+    //TODO ReviewController이 어떻게 돌아가는지 다시 보기
 
     // Authentication authentication 이거는
     @PostMapping("/restaurants/{restaurantId}/reviews")
